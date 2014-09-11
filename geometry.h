@@ -67,11 +67,12 @@ public:
 
 
 class Polygon:public Shape{
-    std::vector<Points> points;
+    std::vector<Point> points;
     public:
     Polygon();
     ~Polygon();
     std::vector<Point> getPoints()const;
+    void addPoint(const Point &i);
 };
     
 #endif
