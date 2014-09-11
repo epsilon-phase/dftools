@@ -16,4 +16,4 @@ std::vector<Point> Polygon::getPoints()const{
             quip.push_back(c);
     }
     return quip;
-}:
+}
