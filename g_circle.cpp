@@ -66,8 +66,78 @@ void Circle::intersectionPoint(const Line& b,int &n, std::vector<Point> &output)
 }
 void Circle::intersectionPoint(const Circle& b,int &n,std::vector<Point> &output)const{
     Point i;
-    i.x=0;
-    i.y=0;
+    double o=b.thing.y,k1=thing.y,h1=thing.x,l=b.thing.x,b=b.radius,
+           r=radius;
+    double x=0,y=0;
+    if(o==k1&&h1-l!=0.0){
+        x=b*b+h1*h1-l*l-r*r;
+        x/=(2*h1-l);
+        y=b*b+h1*h1-l*l-r*r;
+        y*=y;
+        y/=4*(h1-l)*(h1-l);
+        y+=(l*((b*b+h1*h1-l*l-r*r)(b*b+h1*h1-l*l-r*r)))/(h1-l);
+        y+=b*b-l*l;
+        y=sqrt(y)*2;
+        output.push_back(Point(x,(2*o-2*y)/2));
+        output.push_back(Point(x,(2*o+2*y)/2));
+
+    }else{
+        if(h1*h1-2*h1*l+k1*k1-2*k1*o+o*o!=0&&k1-o!=0){
+            /*
+            double t1,t2,t3,t4,t5,y1,y2,y3;
+            x=b*b*h1-b*b*l;
+            t1=k1-o;
+            t1*=t1;
+            t2=b*b*b*b
+                -2*b*b*h1*h1+
+                4*b*b*h1*l-
+                2*b*b*k1*k1+
+                4*b*b*k1*o
+                - 2*b*b*l*l
+                -2*b*b*o*o
+                -2*b*b*r*r
+                +h1*h1*h1*h1
+                -4*h1*h1*h1*l
+                +2*h1*h1*r*r
+                -4*h1*k1*k1*l
+                +8*h1*k1*l*o
+                -4*h1*l*l*l
+                -4*h1*l*o*o
+                +4*h1*l*r*r
+                +k1*k1*k1*k1
+                -4*k1*k1*k1*o
+                +2*k1*k1*l*l
+                +6*k1*k1*o*o
+                -2*k1*k1*r*r
+                -4*k1*l*l*o
+                -4*k1*o*o*o+
+                2*k1*k1*l*l
+                +6*k1*k1*o*o
+                -2*k*k*r*r
+                -4*k1*l*l*o
+                -4*k1*o*o*o+
+                4*k1*o*r2
+                +l*l*l*l
+                +2*l*l*o*o-
+                2*l*l*r*r
+                +o*o*o*o
+                -2*o*o*r*r
+                +r*r*r*r;
+            t3=h1*h1*h1-h1*h1*l+h1*k1*k1-2*h1*k1*o-h1*l*l+
+                h1*o*o
+                -h1*r*r
+                +k1*k1*l-2*k1*l*o
+                +l*l*l
+                +l*o*o
+                +l*r*r;
+            t2=sqrt(t2*t1);
+            t4=t2+t3+x;
+            t5=x-t2+t3;
+            y1=b*b*k1*k1-2*b*b*k1*o+b*b*o*o;
+            y2=
+            */
+        }
+    }
     for(double o=0;o<2*PI;o+=0.001){
         i.x=cos(o)*radius+thing.x;
         i.y=sin(o)*radius+thing.y;
@@ -75,6 +145,7 @@ void Circle::intersectionPoint(const Circle& b,int &n,std::vector<Point> &output
                 output.push_back(i);
         }
     }
+
     n=output.size();
 }
 
