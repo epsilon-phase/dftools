@@ -29,3 +29,6 @@ g_circle.o: g_circle.cpp geometry.h
 
 line.o: line.cpp geometry.h
 	$(CC) $(CCOPT) -c line.cpp
+
+doc: Doxyfile *.cpp *.h
+	doxygen Doxyfile

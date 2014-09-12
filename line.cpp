@@ -33,11 +33,14 @@ bool Line::doLinesIntersect(const Line &b)const{
         && touchesOrCrossesLine(b)
         && b.touchesOrCrossesLine(*this);
 }
+bool Line::intersects(const Line& b)const{
+    return doLinesIntersect(b);
+}
 vector<Point> Line::getPoints()const{
     double length= sqrt((first.x-second.x)*(first.x*second.x)+(first.y-second.y)*(first.y-second.y));
     vector<Point> results;
     for(double i=0;i<1;i+=1/length){
         results.push_back(Point(i*first.x+(1-i)*second.x,i*first.y+(1-i)*second.y));
     }
-return results;
+    return results;
 }
