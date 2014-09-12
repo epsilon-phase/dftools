@@ -5,6 +5,7 @@
 #define EPSILON 0.0001
 // Point class, specifies a point on a *nearly* continuous range across two
 // axis.
+
 class Point{
     public:
         double x,y;
@@ -26,12 +27,16 @@ class Point{
             return Point(a.x-x,a.y-y);
         }
 };
+double Distance(const Point&a,const Point&b);
+int compareWithError(double,double,double);
 //class for generic shape access, you know, for shape things.
 class Shape{
     public:
         Shape();
         ~Shape();
         virtual std::vector<Point> getPoints()const=0;
+        virtual bool intersects(const Shape&)const;
+        virtual void intersectionPoint(const Shape&,int&,std::vector<Point>&)const;
 };
 class Line:public Shape{
     public:
@@ -62,6 +67,7 @@ public:
     void intersectionPoint(const Circle& b,int &n,std::vector<Point> &output)const;
     void intersectionPoint(const Line &b,int &n, std::vector<Point> &output)const;
     bool isOnCircle(const Point &i)const;
+    bool isOnCircle(const Point &i,double error)const;
     std::vector<Point> getPoints()const;
 };
 

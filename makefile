@@ -16,7 +16,7 @@ concentricity:concentricity.cpp circle.h csv.h
 	$(CC) $(CCOPT) concentricity.cpp -o concentricity
 
 geo_test: polygon.o shape.o line.o g_circle.o geo_test.cpp
-	$(CC) $(CCOPT) polygon.o shape.o line.o g_circle.o geo_test.cpp
+	$(CC) $(CCOPT) polygon.o shape.o line.o g_circle.o geo_test.cpp -o geo_test
 
 polygon.o: polygon.cpp geometry.h
 	$(CC) $(CCOPT) -c polygon.cpp
