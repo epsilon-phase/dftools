@@ -8,7 +8,9 @@
  */
 class Point{
     public:
-        double x,y;
+        
+        double x,//! \var The coordinate of the Point on the "x" axis
+               y;//! \var The coordinate of the Point on the "y" axis
         Point():x(0.0),y(0.0)
     {}
         Point(double x,double y):
@@ -112,6 +114,7 @@ class Line:public Shape{
         /**
          * Calculates the distance between the start point and the end point,
          * and returns it.
+         * 
          */
         double length()const;
         /**

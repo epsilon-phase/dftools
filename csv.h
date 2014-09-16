@@ -8,6 +8,9 @@
 #ifdef DEBUG
 #include <iostream>
 #endif
+/**
+ * Grid class to allow for conversion to a comma separated value file.
+ */
 class csv{
     std::map<int,std::map<int,std::string> > content;
     int block_size;
@@ -29,7 +32,12 @@ class csv{
         else if(hr<y)
             hr=y;
     }
-    //Get the content of a cell, or return ' '
+    /**
+     * Get the content of a cell, or return ' '
+     * \param[in] x The x coordinate of the cell to read
+     * \param[in] y The y coordinate of the cell to read
+     * \returns The value of the cell should it exist, or ' ' if it does not
+     */
     std::string getCell(int x,int y)const{
         if(content.find(y)!=content.end())
         {
@@ -39,7 +47,10 @@ class csv{
         }
         return " ";
     }
-    //get a row of a CSV file
+    /**
+     * Get a row from the CSV object
+     * \param[in] y The y coordinate of the line to obtain(may be negative)
+     */
     std::string getLine(int y)const{
         std::string i;
         for(int c=lc;c<hc;c++){
@@ -77,17 +88,24 @@ class csv{
             }
     }
     }
+    /**
+     * Write the contents of the class as csv as specified by the argument
+     * \param[in] output The file which will be written to.
+     */
     void writeToFile(const std::string& output)const{
         std::ofstream i;
         i.open(output);
         i<<getContents();
         i.close();
     }
-    //Get the entire file mostly correctly formatted.
+    /**
+     * Get the contents of the container, in comma-separated value form.
+     */
     std::string getContents() const{
 #ifdef DEBUG
         std::cerr<<"Creating string\n";
 #endif
+        //! \var This is a thing
         std::string c;
         for(int i=lr;i<=hr;i++){
             //add a newline
@@ -113,6 +131,16 @@ class csv{
                 }
             }
     }
+    /**
+     * Set the cells that make up a line from (x1,y1) to (x2,y2) with blocksize
+     * \param[in] x1 the x coordinate of the first point
+     * \param[in] y1 the y coordinate of the first point
+     * \param[in] x2 the x coordinate of the second point
+     * \param[in] y2 the y coordinate of the second point
+     * \param[in] b_size the size of the blocks which are set(the total number
+     * \param[in] fil  the string to fill each of the affected cells with.
+     * of blocks set in any place will be equal to b_size*b_size)
+     */
     void linefrom(int x1,int y1,int x2,int y2,
             const std::string &fil,unsigned int b_size=1){
         using namespace std;
