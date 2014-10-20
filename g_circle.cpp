@@ -113,3 +113,19 @@ bool Circle::isOnCircle(const Point &a,double error)const{
 double Circle::getArea()const{
     return 3.14159265359*radius*radius;
 }
+std::vector<Point> Circle::getInterior()const{
+    int r=floor(radius*radius);
+    std::vector<Point> result;
+    int minY=radius-thing.y,maxY=radius+thing.y;
+    int minX=radius-thing.x,maxX=radius+thing.x;
+    for(int i=minY;i<=maxY;i++){
+        for(int j=minX;j<=maxX;j++){
+            int dx=j-thing.x;
+            int dy=i-thing.y;
+            if((dx*dx+dy*dy)<=r){
+                result.push_back(Point(j,i));
+            }
+        }
+    }
+    return result;
+}

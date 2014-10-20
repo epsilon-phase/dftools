@@ -128,6 +128,7 @@ class BoundedConstruct{
          * Obtain an area(or as near an estimate as possible)
          */
         virtual double getArea()const=0;
+        virtual std::vector<Point> getInterior()const=0;
 };
 class Circle:public Shape,public BoundedConstruct{
 public:
@@ -186,6 +187,7 @@ public:
      */
     std::vector<Point> getPoints()const;
     double getArea()const;
+    std::vector<Point> getInterior()const;
 };
 
 
@@ -208,6 +210,7 @@ class Polygon:public Shape,public BoundedConstruct{
      */
     void addPoint(const Point &i);
     double getArea()const;
+    std::vector<Point> getInterior()const;
 };
     
 #endif
