@@ -17,3 +17,10 @@ std::vector<Point> Polygon::getPoints()const{
     }
     return quip;
 }
+double Polygon::getArea()const{
+    double area=0;
+    for(int i=0;i<points.size()-1;i++){
+        area+=points[i].x*points[i+1].y-points[i+1].x*points[i].y;
+    }
+    return area/2;
+}

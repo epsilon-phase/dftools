@@ -110,3 +110,6 @@ bool Circle::isOnCircle(const Point &u)const{
 bool Circle::isOnCircle(const Point &a,double error)const{
     return compareWithError(Distance(thing,a),radius,error);
 }
+double Circle::getArea()const{
+    return 3.14159265359*radius*radius;
+}

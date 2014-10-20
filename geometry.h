@@ -122,7 +122,14 @@ class Line:public Shape{
          */
         std::vector<Point> getPoints()const;
 };
-class Circle:public Shape{
+class BoundedConstruct{
+    public:
+        /**
+         * Obtain an area(or as near an estimate as possible)
+         */
+        virtual double getArea()const=0;
+};
+class Circle:public Shape,public BoundedConstruct{
 public:
     /**
      * The center of the circle.
@@ -157,7 +164,7 @@ public:
     /**
      * Finds the intersection between the a line and the boundary of the
      * circle, faster than the naive Shape.intersectionPoint
-     */:w
+     */
 
     void intersectionPoint(const Line &b,int &n, std::vector<Point> &output)const;
     /**
@@ -178,10 +185,11 @@ public:
      * of the circle
      */
     std::vector<Point> getPoints()const;
+    double getArea()const;
 };
 
 
-class Polygon:public Shape{
+class Polygon:public Shape,public BoundedConstruct{
     /**
      * The points which make up the endpoints of the line segments of the
      * polygon.
@@ -199,6 +207,7 @@ class Polygon:public Shape{
      * last point previously specified).
      */
     void addPoint(const Point &i);
+    double getArea()const;
 };
     
 #endif
