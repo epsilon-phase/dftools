@@ -2,6 +2,7 @@
 #define GEOMETRY_H
 #include <cmath>
 #include <vector>
+#include "clipper.hpp"
 #define EPSILON 0.0001
 /**
  * Contains two coordinates on different axises, often referred to as x and y.
@@ -35,14 +36,25 @@ class Point{
             x+=dx;
             y+=dy;
         }
+        /**
+         * Get the difference between this vector and another.
+         */
         Point getDifference(Point a)const{
             return Point(a.x-x,a.y-y);
         }
-
+        /**
+         * Get the point in between this point and another.
+         */
         Point getMidPoint(const Point& a)const{
             double dx=a.x-x;
             double dy=a.y-y;
             return Point(dx/2,dy/2);
+        }
+        /**
+         * Make it as easy as possible to do things with clipper.
+         */
+        ClipperLib::IntPoint getAsClipper()const{
+            return ClipperLib::IntPoint(std::round(x),std::round(y));
         }
 };
 /**
@@ -211,6 +223,9 @@ class Polygon:public Shape,public BoundedConstruct{
     void addPoint(const Point &i);
     double getArea()const;
     std::vector<Point> getInterior()const;
+    Polygon Union(const Polygon&)const;
+    Polygon Difference(const Polygon&)const;
+    Polygon Intersection(const Polygon&)const;
 };
     
 #endif

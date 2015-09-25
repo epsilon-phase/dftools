@@ -79,3 +79,55 @@ std::vector<Point> Polygon::getInterior()const{
     }
     return result;
 }
+
+Polygon Polygon::Difference(const Polygon& a)const{
+    ClipperLib::Paths thisone(1),thatone(1),solution;
+    for(auto i:this->points){
+        thisone[0]<<i.getAsClipper();
+    }
+    for(auto i:a.points)
+        thatone[1]<<i.getAsClipper();
+    ClipperLib::Clipper b;
+    b.AddPaths(thisone,ClipperLib::PolyType::ptSubject,true);
+    b.AddPaths(thatone,ClipperLib::PolyType::ptSubject,true);
+    b.Execute(ClipperLib::ClipType::ctDifference,solution);
+    Polygon r;
+    for(auto c:solution[0]){
+        r.addPoint(Point(c.X,c.Y));
+    }
+    return r;
+}
+Polygon Polygon::Union(const Polygon& a)const{
+    ClipperLib::Paths thisone(1),thatone(1),solution;
+    for(auto i:this->points){
+        thisone[0]<<i.getAsClipper();
+    }
+    for(auto i:a.points)
+        thatone[1]<<i.getAsClipper();
+    ClipperLib::Clipper b;
+    b.AddPaths(thisone,ClipperLib::PolyType::ptSubject,true);
+    b.AddPaths(thatone,ClipperLib::PolyType::ptSubject,true);
+    b.Execute(ClipperLib::ClipType::ctUnion,solution);
+    Polygon r;
+    for(auto c:solution[0]){
+        r.addPoint(Point(c.X,c.Y));
+    }
+    return r;
+}
+Polygon Polygon::Intersection(const Polygon& a)const{
+    ClipperLib::Paths thisone(1),thatone(1),solution;
+    for(auto i:this->points){
+        thisone[0]<<i.getAsClipper();
+    }
+    for(auto i:a.points)
+        thatone[1]<<i.getAsClipper();
+    ClipperLib::Clipper b;
+    b.AddPaths(thisone,ClipperLib::PolyType::ptSubject,true);
+    b.AddPaths(thatone,ClipperLib::PolyType::ptSubject,true);
+    b.Execute(ClipperLib::ClipType::ctIntersection,solution);
+    Polygon r;
+    for(auto c:solution[0]){
+        r.addPoint(Point(c.X,c.Y));
+    }
+    return r;
+}
