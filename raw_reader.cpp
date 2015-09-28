@@ -8,8 +8,8 @@ std::vector<RawTag> RawReader::ReadFile(const std::string& file){
   bool intag=false;
   int values_gotten=0;
   RawTag current;
-  while(!reader.eof()){
-    char c = reader.get();
+  char c;
+  while((c=reader.get())!=-1){
     switch(c){
     case '[':
       cur="";
@@ -46,5 +46,6 @@ std::vector<RawTag> RawReader::ReadFile(const std::string& file){
       break;
     }
   }
+ done:
   return f;
 }
