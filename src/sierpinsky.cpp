@@ -6,7 +6,7 @@
 using namespace std;
 struct cursor{
     float angle;
-    float x,y;
+    float x=0,y=0;
     void left(float a){
         angle-=a;
         angle=fmod(angle,360.0);
@@ -72,15 +72,21 @@ void draw_turtle_like(csv& input,int size,int levels){
     while(!c.empty()){
         cursor n=c.back();
         c.pop_back();
-        cerr<<q.x<<","<<q.y<<" To "<<n.x<<","<<n.y<<"\n";
         input.linefrom(floor(q.x),floor(q.y),
                 floor(n.x),floor(n.y),
                 "d",2);
         q=n;
     }
 }
-int main(){
+int main(int argc, char **argv){
     csv f;
-    draw_turtle_like(f,2,3);
+    int size=2;
+    int levels=3;
+    if (argc>2){
+      size=std::atoi(argv[1]);
+      if(argc>3)
+	levels=std::atoi(argv[2]);
+    }
+    draw_turtle_like(f,size,levels);
     cout<<f.getContents();
 }

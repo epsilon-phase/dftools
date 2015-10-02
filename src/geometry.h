@@ -54,7 +54,7 @@ class Point{
          * Make it as easy as possible to do things with clipper.
          */
         ClipperLib::IntPoint getAsClipper()const{
-            return ClipperLib::IntPoint(std::round(x),std::round(y));
+            return ClipperLib::IntPoint(round(x),round(y));
         }
 };
 /**
