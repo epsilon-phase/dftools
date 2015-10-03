@@ -4,7 +4,11 @@
 #include <map>
 #include <cmath>
 #include <fstream>
+#include <set>
 #include <iostream>
+#include <tuple>
+#include <vector>
+#include <array>
 #ifdef DEBUG
 #include <iostream>
 #endif
@@ -12,10 +16,12 @@
  * Grid class to allow for conversion to a comma separated value file.
  */
 class csv{
+
     std::map<int,std::map<int,std::string> > content;
     int block_size;
     int hc,lc,hr,lr;
     public:
+    bool recording=false;
     csv():hc(0),lr(0),lc(0),hr(0),block_size(1){}
     ~csv(){}
     //Set the content of a cell in the CSV
@@ -61,6 +67,7 @@ class csv{
         return i;
     }
     void readFromFile(const std::string &input,bool center=false){
+	
         //Clear the existing information, should there be any.
         this->content.clear();
         std::ifstream q;
@@ -117,6 +124,9 @@ class csv{
 #endif
         return c;
     }
+    
+    std::vector<std::array<int,4> > stuff;
+    
     //simulate a grid with less granularity(E.G. make a single tile designation
     //take up multiple tiles).
     void set_block(int x,int y,unsigned int block_size, const std::string& stuff){
@@ -143,6 +153,10 @@ class csv{
      */
     void linefrom(int x1,int y1,int x2,int y2,
             const std::string &fil,unsigned int b_size=1){
+      if(recording){
+	std::array<int,4> fff={x1,y1,x2,y2};
+	stuff.push_back(fff);
+      }
         using namespace std;
         bool steep=abs(y2-y1)>abs(x2-x1);
         if(steep)
@@ -184,6 +198,45 @@ class csv{
                 error=error+deltax;
             }
         }
+    }
+    std::set<std::string> get_extant()const{
+      using namespace std;
+      set<string> e;
+      for(auto i: content){
+	for(auto j: i.second){
+	  e.insert(j.second);
+	}
+      }
+      return e;
+    }
+    void writeAsPPM(const std::string &filename,
+		    const std::map<std::string, std::tuple<int,int,int> > &cmap)const
+    {
+      std::ofstream e(filename);
+      e<<"P3"<<std::endl;
+      e<<hc-lc<<" "<< hr-lr<<std::endl;
+      e<<"255"<<std::endl;
+      for(int y=lr;y<=hr;y++){
+	for(int x=lc;x<=hc;x++){
+	  if(cmap.find(this->getCell(x,y))==cmap.end()){
+	    e<<"0 0 0"<<std::endl;
+	  }else{
+	  std::tuple<int,int,int> c=cmap.find(this->getCell(x,y))->second;
+	  e<<std::get<0>(c)<<" "<<std::get<1>(c)<<" "<<std::get<2>(c)<<" ";
+	  }
+	}
+	e<<std::endl;
+      }
+      e.close();
+    }
+    int width()const{
+      return hc-lc;
+    }
+    int height()const{
+      return hr-lr;
+    }
+    std::array<int,4> getDim()const{
+      return std::array<int,4>{lc,lr,hc,hr};
     }
 };
 #endif
