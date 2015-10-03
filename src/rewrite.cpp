@@ -55,16 +55,14 @@ void evaluate(csv&input,int iterations,const string& current){
 	  input.linefrom(floor(tmp.x),floor(tmp.y),floor(initial.x),floor(initial.y),"d");
 	  initial=tmp;
 	  }
-	  cout<<"moving forwards"<<endl;
 	  break;
 	case TURN_LEFT:
 	  initial.left(current_op[i].op_args);
-	  cout<<"turning left by"<<current_op[i].op_args<<endl;
+
 	  
 	  break;
 	case TURN_RIGHT:
 	  initial.right(current_op[i].op_args);
-	  cout<<"turning right by"<<current_op[i].op_args<<endl;
 	  break;
 	case PUSH:
 	  stack.push_back(initial);
@@ -111,8 +109,10 @@ int main(int argc, char** argv){
   int c;
   int iterations=4;
   string output;
+  bool make_picture=false;
+  string pict;
   scale=4;
-  while((c=getopt(argc,argv,"i:r:o:s:?"))!=-1){
+  while((c=getopt(argc,argv,"i:r:o:s:p:?"))!=-1){
     switch(c){
     case 'i':
       {
@@ -139,13 +139,29 @@ int main(int argc, char** argv){
 	scale=stoi(g);
       }
       break;
+    case 'p':
+      pict=optarg;
+      make_picture=true;
+      break;
     default:
       print_help(argc,argv);
     }
   }
   csv out;
+  out.recording=true;
   evaluate(out,iterations,axiom);
   out.writeToFile(output);
+  if(make_picture){
+    ofstream fc(pict);
+    auto dim=out.getDim();
+    fc<<"<svg  xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">"<<endl;
+    fc<<"<rect x=\""<<dim[0]<<"\" y=\""<<dim[1]<<"\" width=\""<<out.width()<<"\" height=\""<<out.height()<<"\"/>";
+    for(auto q : out.stuff){
+      fc<<"<polyline points=\""<<q[0]<<","<<q[1]<<","<<q[2]<<","<<q[3]<<"\" stroke=\"black\"/>"<<endl;
+    }
+    fc<<"</svg>";
+  }
+  std::cout<<out.width()<<" "<<out.height()<< endl;
 }
 void print_help(int argc,char **argv){
   cout<<"Proper usage is \""<<argv[0]<<"-i <integer> -r <input file> -o <output file>"<<endl;
