@@ -1,8 +1,10 @@
 Table of Contents
 =================
 
+  * [Table of Contents](#table-of-contents)
   * [dftools](#dftools)
     * [Introduction](#introduction)
+      * [Compiling](#compiling)
     * [Sierpinsky](#sierpinsky)
     * [LSystem](#lsystem)
     * [Geometry](#geometry)
