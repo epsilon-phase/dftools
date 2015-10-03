@@ -1,5 +1,14 @@
+Table of Contents
+=================
 
-* [Introduction](#introduction)
+  * [dftools](#dftools)
+    * [Introduction](#introduction)
+    * [Sierpinsky](#sierpinsky)
+    * [LSystem](#lsystem)
+    * [Geometry](#geometry)
+    * [Everything else (As of now)](#everything-else-as-of-now)
+      * [Reactions and raws](#reactions-and-raws)
+  * [Software used in this](#software-used-in-this)
 
 
 dftools
