@@ -50,6 +50,11 @@ material.o:src/material.cpp src/material.hpp dfobject.o
 material_test: src/material_test.cpp material.o
 	$(CC) $(CCOPT) material.o dfobject.o raw_reader.o src/material_test.cpp -o material_test
 
+jsoncpp.o:src/jsoncpp.cpp
+	$(CC) $(CCOPT) -c src/jsoncpp.cpp
+
+rewrite:src/rewrite.cpp src/turtle.hpp jsoncpp.o src/csv.h
+	$(CC) $(CCOPT) src/rewrite.cpp jsoncpp.o -o rewrite
 doc: Doxyfile *.cpp *.h
 	doxygen Doxyfile
 

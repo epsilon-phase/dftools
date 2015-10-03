@@ -3,36 +3,71 @@
 Rewrite rules are a powerful way to express a fractal system in a compact way.
 They consist of three things, *Constants*, *Rewrite rules*, and a single *axiom*.
 
+The specifications are defined in a json file.
+
 ##Constants
 
 Constants are the basic commands that are executed at the end of
 recursion. They allow for a significant amount of customization and
-often share their assigned letter with a Rewrite Rule. They have a
-relatively simple syntax that allows for multiple instructions to a
-single constant.
-Defined in BNF they resemble this
-
+often share their assigned letter with a Rewrite Rule. They are defined in the "Constant" object in a json file.
 ```
-<const> ::= <char> <equal-sign> <const-spec>
-<const-spec> ::= <operation>|<operation> <const-spec>
-<operation> ::= <d>|<u>|<f>|<r> <paren-left> <integer> <paren-right>| <l> <paren-left> <integer> <paren-right>
+"Constant":[
+	{
+	    "key":"1",
+	    "value":[
+		{
+		    "op_type":0,
+		    "op_args":0
+		}
+	    ]
+	},
+	{
+	    "key":"0",
+	    "value":[
+		{
+		    "op_type":0,
+		    "op_args":0
+		}
+	    ]
+	},
+	{
+	    "key":"d",
+	    "value":[
+		{
+		    "op_type":1,
+		    "op_args":0
+		},
+		{
+		    "op_type":3,
+		    "op_args":45
+		}
+	]
+	},
+	{
+	    "key":"u",
+	    "value":[
+		{
+		    "op_type":2,
+		    "op_args":0
+		},
+		{
+		    "op_type":4,
+		    "op_args":45
+		}
+	    ]
+	}
+    ]
 ```
 
-So a typical definition of the constants for a pythagoras tree would resemble this:
-
-```
-1=f,0=f,d=dl(45),u=ur(45)
-```
-
-For reference the characters have the following meanings:
-
-|Character | Meaning|
+|op_type | Meaning|
 |----------|--------|
-|f         |move forwards|
-|d         |push the cursor as it is onto the stack|
-|u         |pop the cursor|
-|l(<int>)  |Turn <int> degrees left|
-|r(<int>)  |Turn <int> degrees right|
+|0         |move forwards|
+|1         |push the cursor as it is onto the stack|
+|2         |pop the cursor|
+|3(<int>)  |Turn <int> degrees left|
+|4(<int>)  |Turn <int> degrees right|
+
+Any of the above operations' arguments are defined in the ``op_args`` key.
 
 As you have observed above, constants may have multiple operations
 performed, this allows for some curves to be defined with fewer
@@ -46,29 +81,85 @@ can lead to other Rewrite Rules or constants. They aren't quite the
 same, as of writing they don't support alternatives, as that would not
 make any sense as far as rewriting systems go.
 
-```
-<rewrite-rule> ::= <char> <equal-sign> <rewrite-operator>
-<rewrite-operator> ::= <char> | <char> <rewrite-operator>
-```
-
 An example continuing the pythagoras tree definitions whose constants were defined in the examples in the previous section would look like this:
 ```
-1=11,0=1d0u0
+    "Rewrite":[
+	{
+	    "key":"1",
+	    "value":"11"
+	},
+	{
+	    "key":"0",
+	    "value":"1d0u0"
+	}
+    ],
 ```
-
 ##The Axiom
 
 The Axiom for a ruleset is the initial state of the rule. This is simpler than the above definitions as it takes the initial series of the rewrite rules and constants.
 
-Continuing the pythagoras tree example previously, the axiom is much smaller ``0``. Which in that equates to starting on the leaf state.
+Continuing the pythagoras tree example previously, the axiom is much smaller ``"Axiom":"0"``. Which in that equates to starting on the leaf state.
 
 #The Whole Example
 
 ```
-CONSTANTS
-1=f,0=f,d=dl(45),u=ur(45)
-REWRITES
-1=11,0=1d0u0
-AXIOM
-0
+{
+    "Constant":[
+	{
+	    "key":"1",
+	    "value":[
+		{
+		    "op_type":0,
+		    "op_args":0
+		}
+	    ]
+	},
+	{
+	    "key":"0",
+	    "value":[
+		{
+		    "op_type":0,
+		    "op_args":0
+		}
+	    ]
+	},
+	{
+	    "key":"d",
+	    "value":[
+		{
+		    "op_type":1,
+		    "op_args":0
+		},
+		{
+		    "op_type":3,
+		    "op_args":45
+		}
+	    ]
+	},
+	{
+	    "key":"u",
+	    "value":[
+		{
+		    "op_type":2,
+		    "op_args":0
+		},
+		{
+		    "op_type":4,
+		    "op_args":45
+		}
+	    ]
+	}
+    ],
+    "Rewrite":[
+	{
+	    "key":"1",
+	    "value":"11"
+	},
+	{
+	    "key":"0",
+	    "value":"1d0u0"
+	}
+    ],
+    "Axiom":"0"
+}
 ```
