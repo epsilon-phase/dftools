@@ -1,7 +1,6 @@
 CCOPT=-std=c++11 -g 
 CC=g++
-all: circle sierpinsky htree src/csv.h concentricity geo_test raw_test reaction_test raw_name_extractor material_test
-
+all: circle sierpinsky htree src/csv.h concentricity geo_test raw_test reaction_test raw_name_extractor material_test rewrite
 
 circle: src/circle.cpp src/circle.h src/csv.h 
 	$(CC) $(CCOPT) src/circle.cpp -o circle
