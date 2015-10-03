@@ -23,6 +23,20 @@ The majority of tools in this repository are aimed at producing comma-separated-
 
 Some of them are however interesting and capable of being used for acts of great !!fun!!.
 
+###Compiling
+
+I've been developing this on linux, without any concessions to Windows or Mac, so there may be issues that are unresolved on both platforms, as there *are* issues unresolved on linux, but there aren't any libraries that are required other than a libc that has a unistd.h header with a ``getopt`` function
+
+So typical instructions for linux looks like this:
+```
+cd dftools
+make
+```
+
+magical, isn't it?
+
+However there is no ``make install`` or similar utility to place them on your path. If you want that, then please consider moving the files that you want to a directory like `~/bin` which you would then add to the path.
+
 Sierpinsky
 ----
 Have you ever considered using a sierpinsky curve as the basis for your fortress? No, that's not surprising. In any case, it happens to be a starting point for the travelling salesman problem as it tends to provide a decent route for said salesman for no examination of the graph.
