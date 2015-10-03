@@ -1,21 +1,25 @@
-# dftools
+
+* [Introduction](#introduction)
+dftools
+============
 Tools for Dwarf Fortress. 
 
 It has come to many people's attention that Dwarf Fortress' gui leaves a lot to be desired. There exist plugins that improve its usability these days but often with intricate or large designs, it proves tedious to create these ingame. These tools are meant to remedy this.
 
-##Introduction
+Introduction
+--------
 The majority of tools in this repository are aimed at producing comma-separated-values files to use as input for quickfort or dfhack. Some of them are merely tests for functionality that has been written, so most of them probably won't be useful.
 
 Some of them are however interesting and capable of being used for acts of great !!fun!!.
 
-###Sierpinsky curve generation
-
+Sierpinsky
+----
 Have you ever considered using a sierpinsky curve as the basis for your fortress? No, that's not surprising. In any case, it happens to be a starting point for the travelling salesman problem as it tends to provide a decent route for said salesman for no examination of the graph.
 
-Currently the implementation is clumsy and duplicates code in the [rewrite](#LSystem generation in rewrite).
+Currently the implementation is clumsy and duplicates code in the [rewrite](#LSystem).
 
-###LSystem generation in rewrite.
-
+LSystem
+------------
 Rewrite is an utility that is capable of taking a json specification
 and iterating over lsystems quickly. These lsystems are among the
 easiest to write of fractals, and are quite capable of producing a
@@ -38,8 +42,8 @@ The `-o` option controls the file that it writes to.
 
 The `-s` controls the scale, which is the amount that each "forward" instruction moves the cursor forwards.
 
-###Geometry
-
+Geometry
+----
 There are a number of functions meant to handle some simplistic
 computational geometry. These are defined normally in
 [geometry.h](src/geometry.h). The only ones that are numerically
@@ -48,8 +52,8 @@ code from Clipper. This is not much now, and there's a lot of work put
 into it before switching to using Clipper. Work that lead to
 inefficient and nonsensical algorithms that aren't guaranteed to work.
 
-###Everything else (As of now)
-
+Everything else (As of now)
+-------
 Some of the headers have documentation. This fell apart some time ago, but the documentation where it exists is most likely still accurate.
 
 
@@ -62,7 +66,8 @@ There is not currently a great deal of work done with these, because representin
 Due to that constraint and the overbearing complexity of the game as a whole, the only currently working example of this is the reaction reader and the material reader. However, the material reader does not handle the actual reading of the material due to a terrible implementation architecture which is too intensive to extend at the moment.
 
 
-#Software used in this:
+Software used in this
+====
 
 * [jsoncpp](https://github.com/open-source-parsers/jsoncpp)
 * [Clipper](http://www.angusj.com/delphi/clipper.php)
