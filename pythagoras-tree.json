@@ -1,0 +1,37 @@
+{
+    "Constant":[
+	{
+	    "key":"f",
+	    "value":[
+		{
+		    "op_type":0
+		}
+	    ]
+	},
+	{"key":"+",
+	 "value":[
+	     {"op_type":3,
+	      "op_args":90
+	     }
+	 ]
+	},
+	{"key":"-",
+	 "value":[
+	     {"op_type":4,
+	      "op_args":90
+	     }
+	 ]
+	}
+    ],
+    "Rewrite":[
+	{
+	    "key":"x",
+	    "value":"x+yf+"
+	},
+	{
+	    "key":"y",
+	    "value":"-fx-y"
+	}
+    ],
+    "Axiom":"fx"
+}
