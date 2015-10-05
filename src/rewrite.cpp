@@ -157,7 +157,7 @@ int main(int argc, char** argv){
     fc<<"<svg  xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">"<<endl;
     fc<<"<rect x=\""<<dim[0]<<"\" y=\""<<dim[1]<<"\" width=\""<<out.width()<<"\" height=\""<<out.height()<<"\"/>";
     for(auto q : out.stuff){
-      fc<<"<polyline points=\""<<q[0]<<","<<q[1]<<","<<q[2]<<","<<q[3]<<"\" stroke=\"black\"/>"<<endl;
+      fc<<"<line x1=\""<<q[0]<<"\" y1=\""<<q[1]<<"\" x2=\""<<q[2]<<"\" y2=\""<<q[3]<<"\" stroke=\"black\"/>"<<endl;
     }
     fc<<"</svg>";
   }
