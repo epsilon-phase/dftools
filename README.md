@@ -17,7 +17,9 @@ dftools
 ============
 Tools for Dwarf Fortress. 
 
-It has come to many people's attention that Dwarf Fortress' gui leaves a lot to be desired. There exist plugins that improve its usability these days but often with intricate or large designs, it proves tedious to create these ingame. These tools are meant to remedy this.
+It has come to many people's attention that Dwarf Fortress' gui leaves a lot to be desired. There exist plugins that improve its usability these days, but often with intricate or large designs, inputting these proves tedious and therefore is error prone.
+
+These tools are meant to remedy some of these problems.
 
 Introduction
 --------
