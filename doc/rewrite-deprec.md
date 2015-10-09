@@ -5,6 +5,8 @@ They consist of three things, *Constants*, *Rewrite rules*, and a single *axiom*
 
 The specifications are defined in a json file.
 
+This program is depreciated as of now for more up to date documentation see [svg](svg_rewrite.md)
+
 ##Constants
 
 Constants are the basic commands that are executed at the end of

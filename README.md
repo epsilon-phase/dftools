@@ -1,17 +1,16 @@
 Table of Contents
 =================
 
-  * [Table of Contents](#table-of-contents)
   * [dftools](#dftools)
     * [Introduction](#introduction)
       * [Compiling](#compiling)
     * [Sierpinsky](#sierpinsky)
     * [LSystem](#lsystem)
+      * [Svg_rewrite](#svg_rewrite)
     * [Geometry](#geometry)
     * [Everything else (As of now)](#everything-else-as-of-now)
       * [Reactions and raws](#reactions-and-raws)
   * [Software used in this](#software-used-in-this)
-
 
 dftools
 ============
@@ -56,7 +55,7 @@ lovely tree as in pythagoras tree, or a dragon curve, which is
 space-filling and wonderful. In principle it is possible to create
 lsystems for many different sorts of curves.
 
-The [main documentation](doc/rewrite.md) may be fragmentary and confused at the moment, but it contains a whole example and nearly everything that needs to be known in order to write your own.
+The [main documentation](doc/rewrite-deprec.md) may be fragmentary and confused at the moment, but it contains a whole example and nearly everything that needs to be known in order to write your own.
 
 Invocation of this utility works as such
 ```
@@ -70,6 +69,20 @@ The `-r` option controls which file is read for specification
 The `-o` option controls the file that it writes to.
 
 The `-s` controls the scale, which is the amount that each "forward" instruction moves the cursor forwards.
+
+###Svg_rewrite
+
+A new version of rewrite which is intended to make writing new
+l-systems easier and to produce cleaner, more efficient svg output has
+also been written.
+
+This utility uses a simplified version of the input of the previous
+incarnation. However it lacks some capabilities at the moment, not
+documented well in the previous incarnation. However, it is better at
+producing accurate output, and more configurable for basic users (or
+people who don't like overly cryptic configuration).
+
+The main documentation can be found [here](doc/svg_rewrite.md).
 
 Geometry
 ----
@@ -101,5 +114,4 @@ Software used in this
 * [jsoncpp](https://github.com/open-source-parsers/jsoncpp)
 * [Clipper](http://www.angusj.com/delphi/clipper.php)
 * [glibc](http://www.gnu.org/software/libc/)(for the getopt function in unistd.h)
-
-
+* [gh-md-toc](https://github.com/ekalinin/github-markdown-toc) for generating documentation tables of content.
