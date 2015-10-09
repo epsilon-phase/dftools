@@ -197,9 +197,8 @@ void path::recalc_path()const{
     if(prevarg!=i){
       prevarg=i;
       arg_consumption=arg_consp[i];
-      
+      e<<cname[i];
     }
-    e<<cname[i];
     for(int i=0;i<arg_consumption;++i,++argdex){
       e<<arguments[argdex]<<" ";
     }
