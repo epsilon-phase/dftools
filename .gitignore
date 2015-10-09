@@ -28,7 +28,8 @@
 *.app
 
 #output of the project
-*.svg *.csv
+*.svg 
+*.csv
 *.swp
 #emacs
 *~

@@ -1,19 +1,19 @@
 #ifndef TURTLE_HPP
 #define TURTLE_HPP
-#define PI 3.1415
+#define PI 3.14159265358979323846
 #include <cmath>
 struct cursor{
-  float angle=0;
-  float x=0,y=0;
-  void left(float a){
+  double angle=0;
+  double x=0,y=0;
+  void left(double a){
     angle-=a;
     angle=std::fmod(angle,360.0);
   }
-  void right(float a){
+  void right(double a){
     angle+=a;
     angle=std::fmod(angle,360.0);
   }
-  cursor forward(int d)const{
+  cursor forward(double d)const{
     using namespace std;
     cursor c;
     c.y=y+d*sin(angle*(PI/180.0));
@@ -22,4 +22,5 @@ struct cursor{
     return c;
   }
 };
+#undef PI
 #endif

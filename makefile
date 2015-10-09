@@ -1,6 +1,6 @@
 CCOPT=-std=c++11 -g 
 CC=g++
-all: circle sierpinsky htree src/csv.h concentricity geo_test raw_test reaction_test raw_name_extractor material_test rewrite csv_toppm
+all: circle sierpinsky htree src/csv.h concentricity geo_test raw_test reaction_test raw_name_extractor material_test rewrite csv_toppm svg_rewrite
 
 
 csv_toppm: src/csv_toppm.cpp src/csv.h
@@ -58,8 +58,15 @@ jsoncpp.o:src/jsoncpp.cpp
 
 rewrite:src/rewrite.cpp src/turtle.hpp jsoncpp.o src/csv.h
 	$(CC) $(CCOPT) src/rewrite.cpp jsoncpp.o -o rewrite
+
+svg.o:src/svg.hpp src/svg.cpp
+	$(CC) $(CCOPT) -c src/svg.cpp
+
+svg_rewrite:src/svg_rewrite.cpp svg.o
+	$(CC) $(CCOPT) svg.o jsoncpp.o src/svg_rewrite.cpp -o svg_rewrite
+
 doc: Doxyfile *.cpp *.h
 	doxygen Doxyfile
 
 clean: 
-	rm *.o geo_test htree circle concentricity sierpinsky
+	rm *.o geo_test htree circle concentricity sierpinsky rewrite
