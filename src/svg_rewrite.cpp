@@ -1,6 +1,7 @@
 #include "turtle.hpp"
 #include "svg.hpp"
 #include "json/json.h"
+#include "csv.h"
 #include <iostream>
 #include <fstream>
 #include <sstream>
@@ -14,7 +15,7 @@ enum operation{
   pop=4
 };
 map<char, string> rewrites={{'0',"1[l0]r0"},{'1',"11"}};
-map<char, operation> constants={
+map<char,operation> constants={
   {'0',operation::forward},
   {'1',operation::forward},
   {'[',push},
@@ -31,7 +32,9 @@ int main(int argc,char **argv){
   string axiom="0";
   int c,iterations=8;
   string readfile,outfile;
-  while((c=getopt(argc,argv,"r:o:i:"))!=-1){
+  bool csvmode=false;
+  string csvfile;
+  while((c=getopt(argc,argv,"r:o:i:c:"))!=-1){
     switch(c){
     case 'r':
       readfile=optarg;
@@ -43,8 +46,14 @@ int main(int argc,char **argv){
     case 'i':
       iterations=stoi(string(optarg));
       break;
+    case 'c':
+      csvmode=true;
+      csvfile=optarg;
+      break;
     }
   }
+  csv* c_out=NULL;
+  if(csvmode)c_out=new csv();
   string result=rewrite(iterations,axiom);
   cursor current;
   svg s;
@@ -61,8 +70,13 @@ int main(int argc,char **argv){
     else if(current.y<min_y)min_y=current.y;
     switch(constants.find(i)->second){
     case operation::forward:
-      current=current.forward(f_step);
-      p->lineTo(current.x,current.y);
+      {
+	cursor tmp=current.forward(f_step);
+	if(c_out)
+	  c_out->linefrom(current.x,current.y,tmp.x,tmp.y,"d");
+	current=tmp;
+	p->lineTo(current.x,current.y);
+      }
       break;
     case turn_left:
       current.left(angle_l);
@@ -87,6 +101,9 @@ int main(int argc,char **argv){
   ofstream quip(outfile);
   quip<<s.serialize();
   quip.close();
+  if(c_out)
+    c_out->writeToFile(csvfile);
+  return 0;
 }
 string rewrite(int iteration,const string& start){
   stringstream eff;
@@ -102,7 +119,6 @@ string rewrite(int iteration,const string& start){
     eff.str("");
     --iteration;
   }
-  cout<<cur<<endl;
   return cur;
 }
 string read_file(const string& filename,double &angle_l,double &angle_r,double &forward_amount){

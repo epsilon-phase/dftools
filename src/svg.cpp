@@ -2,6 +2,7 @@
 #include <sstream>
 #include <cstdio>
 #include <algorithm>
+#include <functional>
 using namespace std;
 svg::svg():element("svg"){
   set_attribute("xmlns",xmlns);
@@ -129,6 +130,25 @@ string element::serialize()const{
     e<<"</"<<name<<">";
   }
   return e.str();
+}
+text::text():element(""){}
+text::~text(){}
+void text::setText(const string& t){
+  stringstream f;
+  for(auto i : t)
+    {
+      if ( i == '&')
+	f<<"&amp;";
+      else
+	f<<i;
+    }
+  txt=f.str();
+}
+string text::getText()const{
+  return txt;
+}
+string text::serialize()const{
+  return txt;
 }
 path::path():element("path"){
   set_attribute("stroke","black");

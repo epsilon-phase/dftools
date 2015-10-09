@@ -34,11 +34,11 @@ line.o: src/line.cpp src/geometry.h
 	$(CC) $(CCOPT) -c src/line.cpp
 clipper.o:src/clipper.hpp src/clipper.cpp
 	$(CC) $(CCOPT) -c src/clipper.cpp
-bin/raw_reader.o:src/raw_reader.cpp src/raw_reader.hpp
+raw_reader.o:src/raw_reader.cpp src/raw_reader.hpp
 	$(CC) $(CCOPT) -c src/raw_reader.cpp
 
 bin/raw_test:src/raw_test.cpp raw_reader.o
-	$(CC) $(CCOPT) raw_reader.o src/raw_test.cpp -o raw_test
+	$(CC) $(CCOPT) raw_reader.o src/raw_test.cpp -o bin/raw_test
 
 reaction.o: raw_reader.o src/reaction.cpp src/reaction.hpp
 	$(CC) $(CCOPT) -c src/reaction.cpp
@@ -65,7 +65,7 @@ svg.o:src/svg.hpp src/svg.cpp
 bin/svg_rewrite:src/svg_rewrite.cpp svg.o
 	$(CC) $(CCOPT) svg.o jsoncpp.o src/svg_rewrite.cpp -o bin/svg_rewrite
 
-doc: Doxyfile *.cpp *.h
+doc: Doxyfile src/*.cpp src/*.h
 	doxygen Doxyfile
 
 clean: 

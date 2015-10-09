@@ -83,7 +83,6 @@ void read_file(const string& filename){
   const Json::Value constants=root["Constant"];
   const Json::Value rewrites=root["Rewrite"];
   const Json::Value axom = root["Axiom"];
-  cout<<"Found "<<constants.size()<<" rules"<<endl;
   for(int i=0; i < constants.size();i++){
     char key=constants[i].get("key","").asCString()[0];
     const Json::Value a=constants[i],operations=a["value"];

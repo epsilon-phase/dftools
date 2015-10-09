@@ -13,7 +13,7 @@ public:
   void set_attribute(const std::string&, const std::string&);
   virtual std::string get_attribute(const std::string&)const;
   std::string get_name()const;
-  std::string serialize()const;
+  virtual std::string serialize()const;
   bool removeAttribute(const std::string& s);
   std::vector<element*> getElementsByType(const std::string&)const;
   friend class svg;
@@ -55,6 +55,19 @@ private:
   double position[2];
   std::vector<int> commands;
   std::vector<double> arguments;
+};
+/**
+ * A placeholder for plain text encapsulated in an xml-style element. 
+ */
+class text:public element{
+public:
+  text();
+  ~text();
+  void setText(const std::string&);
+  std::string getText()const;
+  std::string serialize()const;
+private:
+  std::string txt;
 };
 class svg:public element{
 public:
