@@ -31,6 +31,7 @@
 *.svg 
 *.csv
 *.swp
+bin/*
 #emacs
 *~
 \#*
