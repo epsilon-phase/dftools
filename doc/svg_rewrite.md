@@ -62,7 +62,7 @@ of the pythagoras tree, the resulting structure is below.
 ```
    "Rewrites":{
     "1":"11",
-    "0":"1[l0]0"
+    "0":"1[l0]r0"
 	}
 ```
 
