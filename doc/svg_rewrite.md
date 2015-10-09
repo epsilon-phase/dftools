@@ -59,7 +59,8 @@ column(the value of the key value pair), is a string which replaces
 the key over the course of an iteration. So continuing the definition
 of the pythagoras tree, the resulting structure is below.
 
-``` "Rewrites":{
+```
+   "Rewrites":{
     "1":"11",
     "0":"1[l0]0"
 	}
