@@ -23,6 +23,11 @@ map<char,operation> constants={
   {'l',turn_left},
   {'r',turn_right}
 };
+struct custom_oper{
+  operation type;
+  double argument=0.0;
+};
+map<int,vector<custom_oper> > custom_operations;
 string read_file(const string& filename,double &angle_l,double &angle_r,double &forward_amount);
 string rewrite(int iteration,const string& start);
 int main(int argc,char **argv){
@@ -92,6 +97,39 @@ int main(int argc,char **argv){
       stack.pop_back();
       p->moveTo(current.x,current.y);
       break;
+    default://used to implement custom operations with custom arguments
+      if(custom_operations.find(constants.find(i)->second)!=custom_operations.end()){
+	cout<<"Found custom operation\n";
+	const vector<custom_oper>& e=custom_operations[constants.find(i)->second];
+	for(auto j : e){
+	  switch(j.type){
+	  case operation::forward:
+	    {
+	      double f_temp=f_step*j.argument;
+	      cursor tmp=current.forward(f_temp);
+	      if(c_out)
+		c_out->linefrom(current.x,current.y,tmp.x,tmp.y,"d");
+	      current=tmp;
+	      p->lineTo(current.x,current.y);
+	    }
+	    break;
+	  case turn_left:
+	    current.left(j.argument!=0.0?j.argument:angle_l);
+	    break;
+	  case turn_right:
+	    current.right(j.argument!=0.0?j.argument:angle_r);
+	    break;
+	  case push:
+	    stack.push_back(current);
+	    break;
+	  case pop:
+	    current=stack.back();
+	    stack.pop_back();
+	    break;
+	  }
+	}
+      }
+      break;
     }
   }
   stringstream f;
@@ -141,6 +179,34 @@ string read_file(const string& filename,double &angle_l,double &angle_r,double &
   }
   for(string i : rw_names){
     rewrites[i[0]]=rw[i].asString();
+  }
+  if(root.isMember("Custom Operations")){
+    const Json::Value cust_op=root["Custom Operations"];
+    auto cust_op_mem=cust_op.getMemberNames();
+    for(string j:cust_op_mem){
+      if(!cust_op[j].isArray()){
+	//do something about the error
+      }
+      int current_op=stoi(j);
+      vector<custom_oper> f_eq;
+      for(Json::Value cur_op:cust_op[j]){
+	if(cur_op.isObject()){
+	  cout<<cur_op<<endl;
+	  custom_oper f;
+	  f.type=(operation)cur_op["t"].asInt();
+	  f.argument=cur_op["val"].asDouble();
+	  f_eq.push_back(f);
+	}else if(cur_op.isIntegral()){
+	  custom_oper f;
+	  f.type=(operation)cur_op.asInt();
+	  f.argument=0;
+	  f_eq.push_back(f);
+	}else{
+	  //another error, what to do?
+	}
+      }
+      custom_operations[current_op]=f_eq;
+    }
   }
   return axiom.asString();
 }

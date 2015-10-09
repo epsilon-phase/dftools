@@ -1,0 +1,20 @@
+{
+    "Constant":{
+	"l":1,
+	"r":2,
+	"f":0,
+	"2":5,
+	"h":0
+    },
+    "Rewrites":{
+	"h":"hl2lhrrfrrhl2lh",
+	"s":"hrrfrrhrrfrr"//so elegant
+    },
+    "Axiom":"s",
+    "left turn":45,
+    "right turn":45,
+    "forward step":10,
+    "Custom Operations":{
+	"5":[{"t":0,"val":1.414}]
+    }
+}
