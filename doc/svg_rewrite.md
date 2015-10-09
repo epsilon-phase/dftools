@@ -85,3 +85,30 @@ There are additional options that are important in the definition of an l-system
 |"left turn"|number  |The angle turned when turning left.|
 |"right turn"|number|The angle turned when turning right.|
 |"forward step"|number|The amount moved forwards|
+|"Custom Operations"|complex type|Used to specify more complicated operations, such as turns with different angles, or compound operations|
+
+###Custom Operations
+
+With the inclusion of this feature, this piece of software is as feature complete as the previous one.
+
+This feature allows for definition of additional constants. Custom
+constant operations start at five and continue for the rest of the
+range of 32 bit integer types. They are defined in another section
+which is not necessary for most l-systems.
+
+```
+"Custom Operations":{
+"5":[{"t":0,"val":1.414}]
+}
+```
+
+The section above specifies an additional forward movement operator
+which moves by the forward step times 1.414(the square root of two to
+three places). This is convenient for the sierpinsky curve in
+particular and is taken from the `"Custom Operations"` section of that
+[file](../sierpinsky-filling.json). Custom operations may be more
+space efficient during computation, for example, the same file could
+define a custom operation for the only occasionally needed "Turn right
+by 90 degrees" command, instead of using two right turns by 45
+degrees. It should not alter the output svg at all, except for cases
+where the forward commands are called differently than typical. 
